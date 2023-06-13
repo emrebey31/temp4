@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+import warnings
+warnings.simplefilter("ignore")
+data=sns.load_dataset("tips")
+data2=sns.load_dataset("titanic")
+dataa=pd.read_csv(r"C:\Users\SEFA\PycharmProjects\pythonProject\Yapay Zeka Arşiv\heart.csv")
+sns.boxplot(data["total_bill"])
+plt.show()
+
+def outlier_threshold(df,column,quantile_q1=0.05,quantile_q3=0.95):
+    q3=df[column].quantile(quantile_q3)
+    q1=df[column].quantile(quantile_q1)
+    up_limit= q3+1.5*(q3-q1)
+    low_limit=q1-1.5*(q3-q1)
+    return up_limit,low_limit
+
+up,low=outlier_threshold(data,"total_bill")
